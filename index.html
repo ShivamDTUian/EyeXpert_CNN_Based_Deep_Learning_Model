@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>EyeXpert - Eye Disease Detection</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        body {
+            background: url('https://images.unsplash.com/photo-1581090700227-1e8d92d4c116?auto=format&fit=crop&w=1600&q=80') no-repeat center center fixed;
+            background-size: cover;
+            font-family: 'Segoe UI', sans-serif;
+            color: #fff;
+        }
+        .container {
+            margin-top: 60px;
+            background: rgba(0, 0, 0, 0.75);
+            padding: 40px;
+            border-radius: 15px;
+            box-shadow: 0 0 20px rgba(255, 255, 255, 0.15);
+        }
+        .logo {
+            max-height: 90px;
+            margin-bottom: 30px;
+        }
+        .title {
+            font-size: 48px;
+            font-weight: bold;
+            color: #00d8ff;
+            text-shadow: 2px 2px 4px #000;
+        }
+        .subtitle {
+            font-size: 18px;
+            color: #ccc;
+            margin-bottom: 30px;
+            text-shadow: 1px 1px 2px #000;
+        }
+        .btn-primary {
+            background-color: #00d8ff;
+            border-color: #00d8ff;
+        }
+        .card {
+            background: rgba(255, 255, 255, 0.9);
+            color: #333;
+        }
+        .download-btn {
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container text-center">
+        <img src="{{ url_for('static', filename='Logo.png') }}" alt="EyeXpert Logo" class="logo">
+        <h1 class="title">EyeXpert</h1>
+        <p class="subtitle">CNN-Based Deep Learning and Grad Mapping for
+            Multi-Disease Eye Detection and Progression Mapping with
+            Advanced Image Processing</p>
+
+        <form action="/predict" method="post" enctype="multipart/form-data" class="mb-4">
+            <input type="file" name="image" multiple class="form-control-file mb-3" required>
+            <button type="submit" class="btn btn-primary">Analyze</button>
+        </form>
+
+        {% if results %}
+            <div class="result-table">
+                <h4 class="text-white">Results:</h4>
+                {% for result in results %}
+                    <div class="card mb-3">
+                        <div class="card-body">
+                            <h5 class="card-title">Filename: {{ result.filename }}</h5>
+                            <ul class="list-group list-group-flush">
+                                {% for disease, probability in result.result.items() %}
+                                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                                        {{ disease }}
+                                        <span class="badge badge-info badge-pill">{{ probability }}</span>
+                                    </li>
+                                {% endfor %}
+                            </ul>
+                            <a href="{{ url_for('download_file', filename=result.filename) }}" class="btn btn-success download-btn" download>Download Report</a>
+
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        {% endif %}
+    </div>
+
+
+    
+</body>
+</html>
+
