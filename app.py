@@ -1,6 +1,6 @@
 import os
 import gdown  # type: ignore
-
+os.environ['TF_CPP_MIN_LOG_LEVEL'] = '2'
 # Correct target path where model will be saved
 MODEL_DIR = "model"
 MODEL_PATH = os.path.join(MODEL_DIR, "eye_disease_final.h5")
