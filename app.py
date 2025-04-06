@@ -6,12 +6,12 @@ MODEL_DIR = "model"
 MODEL_PATH = "model/eye_disease_final.h5"
 GDRIVE_FILE_ID = "14naPo5TfH9dboUPeWcsdyUSp7lNcH3me"
 
-# Make sure the directory exists
-os.makedirs(MODEL_DIR, exist_ok=True)
-
 if not os.path.exists(MODEL_PATH):
     print("Downloading model from Google Drive...")
     gdown.download(f"https://drive.google.com/uc?id={GDRIVE_FILE_ID}", MODEL_PATH, quiet=False)
+
+# Make sure the directory exists
+os.makedirs(MODEL_DIR, exist_ok=True)
 
 from tensorflow.keras.models import load_model
 model = load_model(MODEL_PATH)
