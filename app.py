@@ -1,12 +1,20 @@
-import os 
-import gdown # type: ignore
+import os
+import gdown  # type: ignore
 
-MODEL_PATH = "eye_disease_final.h5" 
+# Correct target path where model will be saved
+MODEL_DIR = "model"
+MODEL_PATH = os.path.join(MODEL_DIR, "eye_disease_final.h5")
 GDRIVE_FILE_ID = "14naPo5TfH9dboUPeWcsdyUSp7lNcH3me"
+
+# Make sure the directory exists
+os.makedirs(MODEL_DIR, exist_ok=True)
 
 if not os.path.exists(MODEL_PATH):
     print("Downloading model from Google Drive...")
     gdown.download(f"https://drive.google.com/uc?id={GDRIVE_FILE_ID}", MODEL_PATH, quiet=False)
+
+from tensorflow.keras.models import load_model
+model = load_model(MODEL_PATH)
 
 
 from flask import Flask, render_template, request
