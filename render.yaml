@@ -1,0 +1,7 @@
+services:
+  - type: web                    # This tells Render you're creating a web service (i.e., a website)
+    name: eye-disease-app        # The name of your app on Render (can be anything you like)
+    env: python                  # Specifies the programming environment, in your case Python
+    buildCommand: ""             # Optional step — here it's blank because no build step is needed
+    startCommand: "python app.py" # This is the main command to start your Flask app
+    plan: free                   # This tells Render to use the free hosting plan
