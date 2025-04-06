@@ -3,7 +3,7 @@ import gdown  # type: ignore
 os.environ['TF_CPP_MIN_LOG_LEVEL'] = '2'
 # Correct target path where model will be saved
 MODEL_DIR = "model"
-MODEL_PATH = os.path.join(MODEL_DIR, "eye_disease_final.h5")
+MODEL_PATH = "model/eye_disease_final.h5"
 GDRIVE_FILE_ID = "14naPo5TfH9dboUPeWcsdyUSp7lNcH3me"
 
 # Make sure the directory exists
